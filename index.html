@@ -1,0 +1,150 @@
+<!DOCTYPE html><html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toko Digital</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom right, #3b82f6, #1e40af);
+      color: white;
+      padding-bottom: 100px;
+    }
+    header {
+      padding: 20px;
+      text-align: center;
+      background: #1e3a8a;
+      font-size: 24px;
+      font-weight: 600;
+    }
+    .produk-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .produk {
+      background: white;
+      color: black;
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .produk h3 {
+      margin-top: 0;
+    }
+    .produk button {
+      background: #2563eb;
+      color: white;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .checkout {
+      max-width: 500px;
+      margin: 30px auto;
+      background: rgba(255,255,255,0.9);
+      padding: 20px;
+      border-radius: 16px;
+      color: black;
+    }
+    .checkout input, .checkout select {
+      width: 100%;
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    .checkout button {
+      width: 100%;
+      padding: 12px;
+      background: #1e40af;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    #audio-control {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #1e3a8a;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 50px;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    Toko Produk Digital
+  </header>  <div class="produk-container">
+    <div class="produk">
+      <h3>Paket Data 5GB</h3>
+      <p>Harga: Rp5.000</p>
+      <button onclick="isiCheckout('Paket Data 5GB')">Beli Sekarang</button>
+    </div>
+    <div class="produk">
+      <h3>Voucher Game</h3>
+      <p>Harga: Rp10.000</p>
+      <button onclick="isiCheckout('Voucher Game')">Beli Sekarang</button>
+    </div>
+    <div class="produk">
+      <h3>Template Desain</h3>
+      <p>Harga: Rp8.000</p>
+      <button onclick="isiCheckout('Template Desain')">Beli Sekarang</button>
+    </div>
+  </div>  <div class="checkout">
+    <h2>Checkout</h2>
+    <input type="text" id="nama" placeholder="Nama kamu">
+    <input type="text" id="wa" placeholder="Nomor WhatsApp">
+    <input type="text" id="produk" placeholder="Nama produk" readonly>
+    <select id="metode">
+      <option value="QRIS">QRIS</option>
+      <option value="Dana">Dana</option>
+      <option value="GoPay">GoPay</option>
+    </select>
+    <input type="text" id="bukti" placeholder="Link gambar bukti transfer">
+    <button onclick="kirimPesanan()">Kirim Pesanan</button>
+  </div>  <audio id="bgm" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" type="audio/mp3">
+  </audio>
+  <button id="audio-control" onclick="toggleAudio()">Play Musik</button>  <script>
+    function isiCheckout(namaProduk) {
+      document.getElementById('produk').value = namaProduk;
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+
+    function kirimPesanan() {
+      const nama = document.getElementById('nama').value;
+      const wa = document.getElementById('wa').value;
+      const produk = document.getElementById('produk').value;
+      const metode = document.getElementById('metode').value;
+      const bukti = document.getElementById('bukti').value;
+
+      if (!nama || !wa || !produk || !bukti) return alert('Mohon lengkapi semua data!');
+
+      alert(`Pesanan untuk ${produk} telah dikirim!\nNama: ${nama}\nWA: ${wa}\nMetode: ${metode}\nLink Bukti: ${bukti}`);
+      // Di sini bisa ditambahkan Firebase atau WhatsApp redirect jika diperlukan
+    }
+
+    const audio = document.getElementById('bgm');
+    const control = document.getElementById('audio-control');
+    function toggleAudio() {
+      if (audio.paused) {
+        audio.play();
+        control.innerText = 'Pause Musik';
+      } else {
+        audio.pause();
+        control.innerText = 'Play Musik';
+      }
+    }
+  </script></body>
+</html>
